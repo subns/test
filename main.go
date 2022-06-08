@@ -9,10 +9,10 @@ import (
 )
 
 func main() {
-	printMemUsageFlag := flag.Bool("printMemUsage",false,"print the heap memory usage")
+	printMemUsageFlag := flag.Bool("printMemUsage", false, "print the heap memory usage")
 	flag.Parse()
 	// if printMemUsageFlag is true, print the heap memory usage and exit the program
-	if *printMemUsageFlag{
+	if *printMemUsageFlag {
 		printMemUsage()
 		os.Exit(0)
 	}
@@ -25,7 +25,11 @@ func main() {
 	var userPtr string
 	flag.StringVar(&userPtr, "user", "", "user to greet")
 	flag.Parse()
-
+	if userPtr != "" {
+		fmt.Printf("Hello, %v!\n", userPtr)
+	} else {
+		fmt.Println("Hello, Anonymous!")
+	}
 	fmt.Println("Current Time: ", currentTime.String())
 }
 
