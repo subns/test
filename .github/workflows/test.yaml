@@ -1,0 +1,32 @@
+name: test-CICD
+on:
+  push:
+    branches:
+    - master
+    - staging
+    - develop
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: setup go
+      uses: actions/setup-go@v2
+      with:
+        go-version: '1.17.0'  # the go version to download
+      
+    - name: Install dependencies
+      run: |
+        go version
+        go get -u golang.org/x/lint/golint
+
+    - name: Rub build
+      run: go build .
+
+    - name: Run fmt, vet & lint
+      run: |
+        go vet .
+        golint .
